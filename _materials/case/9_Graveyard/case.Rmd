@@ -1,0 +1,134 @@
+---
+title: "Airbnb in Berlin"
+output:
+  html_document: default
+  includes:
+    before_body: 2_Assets/header.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(tidyverse)
+library(raster)
+library(ggmap)
+library(rgdal)
+require(mapproj)
+require(knitr)
+require(patchwork)
+
+airbnb <- read_csv('airbnb.csv')
+berlin <- readRDS('berlin.RDS')
+
+theme_set(theme_minimal())
+```
+
+
+## Entwicklung
+
+### Zeitlicher Verlauf
+
+Seit `r strftime(min(airbnb$Erstellungsdatum), "%d.%m.%Y")` wurden in Berlin `r nrow(airbnb)` Airbnb Wohnungen eingestellt. Von diesen Wohnungn weisen aktuell `r round(mean(airbnb$Verfügbarkeit_90Tage > 0) * 100)`% Verfügbarkeiten von durchschnittlich `r round(mean(airbnb$Verfügbarkeit_90Tage[airbnb$Verfügbarkeit_90Tage>0]),1)` Tagen für die nächsten 3 Monate auf.    
+
+Einstellungen von AirBnB Wohnungen haben über die letzten Jahre rasant zugenommen. 
+
+```{r fig.asp=1,echo = F, fig.asp=.25}
+ggplot(airbnb, aes(x = Erstellungsdatum)) + geom_histogram() + labs(y = "Häufigkeit")
+```
+
+
+### Räumliche Verteilung
+
+#### Stadteile
+
+```{r message = F, echo = F, fig.asp=.3}
+ggplot(airbnb, aes(y = Stadtteil)) + geom_bar()
+
+```
+
+#### Stadteile über die Zeit
+
+```{r message = F, echo = F, fig.asp=.5}
+Verlauf = airbnb %>% 
+  group_by(Stadtteil) %>% 
+  arrange(Erstellungsdatum) %>% 
+  mutate(Datum = Erstellungsdatum, 
+         Kumulativ = 1:n()) %>% 
+  ggplot(aes(x = Datum, y = Kumulativ, col = Stadtteil)) + 
+  geom_line() 
+
+(Verlauf + theme(legend.position="none") | Verlauf + scale_y_continuous(trans = 'log')) & 
+  labs(y = 'Kumulative Häufigkeit') 
+
+```
+
+#### Karte
+
+You can also embed plots, for example:
+
+```{r echo = F, fig.asp=.6}
+ggmap(berlin) + 
+  theme(axis.title = element_blank(),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  coord_map(ylim=c(52.45,52.58)) +
+  geom_point(airbnb, mapping = aes(x = Längengrad, y = Breitengrad,col=Stadtteil),size=.1)
+```
+
+## Notes
+
+#### Session 1
+
+Q: Wie viele Wohnungen? Wie viele aktiv? Verlauf über Zeit? Verteilung über Stadtteile, Karte? We sind die hosts?
+
+headers
+inline code
+emphasis
+basic chunk settings: echo, eval, include
+plots + patchwork
+
+#### Session 2
+
+Q: Was sind die Eigenschaften der Wohnung? Was bestimmt Preis?
+
+Tabellen, z.B. Unterkunftstyp versus Amenities 
+Regressionsmodell: Welche Faktoren bestimmen Preis? & Regressionstabelle
+Advanced chunk options: fig.* 
+YAML: Index
+(References)
+
+#### Session 3
+
+Q: Keine neuen Fragen
+
+Styling: Corporate design
+CSS  
+Templates
+
+
+#### Session 4
+
+Q: Keine neuen Fragen
+
+Export als Word
+Einführung in Slides
+Übertragung der existierenden Inhalte in Slides
+
+#### Session 5
+
+Q: Keine neuen Fragen
+
+Flexdashboards
+Plotly
+
+#### Session 6
+
+Q: Keine neuen Fragen
+
+Shiny
+
+
+
+
+

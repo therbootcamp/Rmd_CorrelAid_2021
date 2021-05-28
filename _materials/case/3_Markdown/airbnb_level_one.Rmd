@@ -1,0 +1,106 @@
+---
+title: Bericht Berlin 2018/2019
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE)
+
+# Lade Pakete
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(lubridate)
+
+# Lade Daten
+airbnb_1819 <- read_csv('../1_Data/airbnb.csv') %>% 
+  filter(Erstellungsdatum > "2018-01-01", 
+         Erstellungsdatum < "2019-12-31")
+
+```
+
+### Präambel
+
+Dieser Bericht analysiert Veränderungen in den Neueinstellungen und den Preisen von AirBnB Objekten in Berlin, Deutschland. Er wurde zum Zwecke der Übung auf Basis öffentlich verfügbarer Daten erstellt und repräsentiert einzig die Position der Autoren. Es besteht keine Beziehung zu AirBnB.   
+
+### Neueinstellungen
+
+#### Entwicklung
+
+Seit `r strftime(min(airbnb_1819$Erstellungsdatum), "%d.%m.%Y")` wurden in Berlin `r nrow(airbnb_1819)` Airbnb Wohnungeneingestellt. Von diesen Wohnungn weisen aktuell `r round(mean(airbnb_1819$Verfügbarkeit_90Tage > 0) * 100)`% Verfügbarkeiten von durchschnittlich `r round(mean(airbnb_1819$Verfügbarkeit_90Tage[airbnb_1819$Verfügbarkeit_90Tage>0]),1)` Tagen für die nächsten 3 Monate auf.
+
+**Einstellungen von AirBnB Wohnungen haben im letzten Jahr stark zugenommen. Im Jahr 2019 wurden insgesamt `r n_2019 = sum(year(airbnb_1819$Erstellungsdatum) == 2019); n_2019` neue Wohnungen eingestellt wohingegend im Jahr 2018 nur `r n_2018 = sum(year(airbnb_1819$Erstellungsdatum) == 2018); n_2018` Wohnungen eingestellt wurden. Dies entspricht einem Zuwachs von `r (round(n_2019/n_2018, 2) - 1)*100`%.**
+
+
+```{r}
+
+# Plotte Häufigkeiten
+ggplot(airbnb_1819 %>% 
+         group_by(Jahr = year(Erstellungsdatum), 
+                  Monat_tmp = month(Erstellungsdatum)) %>% 
+         summarize(
+           Monat = as_factor(paste(first(Jahr), first(Monat_tmp), sep = '-')),
+           Wohnungen = n()), 
+       aes(x = Monat, y = Wohnungen, fill = Jahr)) + 
+  geom_bar(stat = 'identity', position = 'dodge') + 
+  theme(legend.position = 'none',
+        axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+```
+
+#### Stadtteile
+
+```{r}
+# Berechne Häufigkeiten über die Bezirke
+stadtteile <- airbnb_1819 %>% 
+         group_by(Stadtteil, 
+                  Jahr = year(Erstellungsdatum)) %>% 
+         summarize(Wohnungen = n()) %>% 
+  ungroup() %>% 
+  arrange(desc(Jahr), Wohnungen) %>% 
+  mutate(Stadtteil = as_factor(Stadtteil))
+```
+
+Neueinstellungen fallen nach wie vor sehr unterschiedlich in den Bezirke aus. Die meisten Neueinstellungen im Jahr 2019 gab es in `r stadtteile %>% filter(Jahr == 2019) %>% pull(Stadtteil) %>% last()`, die wenigsten in `r stadtteile %>% filter(Jahr == 2019) %>% pull(Stadtteil) %>% first()`.   
+ 
+```{r}
+# Veränderung über die Stadtteile
+veränderung = stadtteile %>% 
+  group_by(Stadtteil) %>% 
+  summarize(veränderung = (100 * (Wohnungen[Jahr == 2019]/Wohnungen[Jahr == 2018] - 1)) %>% round(1))
+
+# Geringsten Veränderung
+min_veränderung = veränderung %>% 
+  slice(which.min(veränderung)) %>% 
+  pull(veränderung)
+
+# Stadteil mit der geringsten Veränderung
+min_stadtteil = veränderung %>% 
+  slice(which.min(veränderung)) %>% 
+  pull(Stadtteil)
+
+# Grösste Veränderung
+max_veränderung = veränderung %>% 
+  slice(which.max(veränderung)) %>% 
+  pull(veränderung)
+
+# Stadteil mit der grössten Veränderung
+max_stadtteil = veränderung %>% 
+  slice(which.max(veränderung)) %>% 
+  pull(Stadtteil)
+```
+
+**Die grössten Veränderungen gab es in `r min_stadtteil` und `r max_stadtteil`. In `r min_stadtteil` `r ifelse(min_veränderung > 0, "wuchsen", "schrumpften")` die Neueinstellungen um `r min_veränderung`%, in `r max_stadtteil` `r ifelse(max_veränderung > 0, "wuchsen", "schrumpften")` die Neueinstellungen um `r max_veränderung`%.**
+
+```{r fig.asp=.5, fig.cap = cap}
+# Plotte Häufigkeieten der Stadtteile
+ggplot(stadtteile, 
+       aes(y = Stadtteil, x = Wohnungen, group = Jahr, fill = Jahr)) + 
+  geom_bar(stat = 'identity', position = 'dodge') + 
+  theme(legend.position = 'none') + labs(y='')
+
+# Ergänze caption
+cap = "<center>Figure 2. Neueinstellungen pro Bezirk</center>"
+```

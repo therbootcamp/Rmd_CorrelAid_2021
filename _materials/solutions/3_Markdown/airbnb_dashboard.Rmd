@@ -1,0 +1,398 @@
+---
+title: "Dashboards Practical"
+output: 
+  flexdashboard::flex_dashboard:
+    vertical_layout: fill
+    theme: lumen
+    source_code: embed
+    social: ["twitter", "facebook"]
+  runtime: shiny
+---
+
+```{r global, include=FALSE}
+# Lade Pakete
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(leaflet)
+library(viridis)
+library(htmltools)
+
+airbnb <- read_csv("../1_Data/airbnb.csv")
+
+```
+
+Inputs {.sidebar}
+======================================================================
+
+```{r}
+# Auswahl Airbnbs über Schlafzimmer
+sliderInput("Schlafzimmer", "Minimum Anzahl Schlafzimmer", 
+            min = 0, max = 12,
+            value = 0)
+
+# Preis pro Nacht
+sliderInput("Preis", "Max Preis pro Nacht (log):", 
+            min = 0, max = ceiling(max(log10(airbnb$Preis), na.rm = TRUE)),
+            value = ceiling(max(log10(airbnb$Preis), na.rm = TRUE)),
+            step = .01)
+
+# Auswahl der zu Plottenden Stadtteile
+checkboxGroupInput("Stadtteile", "Wähle Stadtteile:",
+                   choices = sort(unique(airbnb$Stadtteil)),
+                   selected = sort(unique(airbnb$Stadtteil)))
+
+# Farbpalette
+selectInput("Farbpalette", "Wähle Farbpalette:",
+            choices = c("viridis", "cividis", "magma", "inferno"),
+            selected = "viridis")
+
+# kreire reaktives airbnb Objekt
+airbnb_dynamic <- reactive({
+
+    airbnb %>%
+      filter(Stadtteil %in% c(input$Stadtteile) &
+               Schlafzimmer >= as.numeric(input$Schlafzimmer) &
+               log10(Preis) <= as.numeric(input$Preis)) 
+  
+    
+})
+
+farben_dynamic <- reactive({
+  ## Farbpalette vorbereiten
+  # Anzahl Stadtteile
+  n_stadtteile <- length(input$Stadtteile)
+  # Definiere n_stadtteile verschiedene Farben aus der viridis palette
+  switch(input$Farbpalette,
+         viridis = viridis(n_stadtteile),
+         cividis = cividis(n_stadtteile),
+         magma = magma(n_stadtteile),
+         inferno = inferno(n_stadtteile))
+})
+```
+
+
+Übersicht der Airbnbs in Berlin {data-orientation=rows}
+======================================================================
+
+Zeile 1 {data-height = 400}
+----------------------------------------------------------------------
+
+### Superhosts
+
+```{r}
+# berechne die Anzahl Superhosts im airbnb Datensatz
+n_superhosts <- sum(airbnb$Host_superhost)
+
+# Erstelle valueBox
+         # Setze die oben berechnete Summe ein
+valueBox(n_superhosts,
+         # Definiere "Superhost" als Titel. Der HTML code
+         # vergrössert die Schrift und setzt die Schriftfarbe
+         # auf weiss
+         caption = "<h3 style='color: white;'>Superhost</h3>",
+         # Wähle eine Medallie als Icon
+         icon = "fa-medal",
+         # Definiere die Färbung der valueBox (hier das Airbnb grün)
+         color = "#6BB7B9")
+```
+
+### Allstar
+
+```{r}
+# Berechne die Anzahl allstars, mit ausschliesslich top ratings
+allstar <- airbnb %>% 
+  # Rating_gesamt ist von 0 bis 100 -> reskaliere auf 0 bis 10
+  mutate(Rating_gesamt = Rating_gesamt / 10) %>% 
+  # Behalte ausschliessliche Spalten mit Ratings
+  select(starts_with("Rating")) %>% 
+  # Berechne die Mittelwerte jeder Zeile über alle Spalten
+  mutate(Ratings_m = rowMeans(.)) %>% 
+  # Behalte nur die Zeilen mit Mittelwert 10 (Maximum Rating)
+  filter(Ratings_m == 10) %>% 
+  # Zähle die Anzahl verbliebener Zeilen
+  summarise(n())
+
+valueBox(allstar, caption = "<h3 style='color: white;'>Allstar</h3>",
+         icon = "fa-gem", color = "#f5d142")
+```
+
+### Preiswert
+
+```{r}
+# Berechne die Anzahl preiswerter Airbnbs
+preiswert <- sum(airbnb$Preis < 100)
+valueBox(preiswert,
+         caption = "<h3 style='color: white;'>Preiswert</h3>",
+         icon = "fa-money-bill-wave", color = "#85a95d")
+```
+
+Zeile 2
+----------------------------------------------------------------------
+
+### Karte {.no-title}
+
+```{r fig.width=18, fig.height=6.5}
+
+renderLeaflet({
+
+dom <- airbnb_dynamic() %>% 
+  pull(Stadtteil) %>% unique()
+
+# Erstelle Farbpalette
+pal <- colorFactor(farben_dynamic(),
+                   domain = dom)
+
+# Erstelle neue Variable für die Labels
+airbnb_dynamic() %>% 
+  mutate(
+    superhost = case_when(isTRUE(Host_superhost) ~ "Ja",
+                          TRUE ~ "Nein"),
+    info = paste0("Unterkunft: <b>", Unterkunftsart,
+                  "</b><br>Schlafzimmer: <b>", Schlafzimmer,
+                  "</b><br>Superhost: <b>", superhost,
+                  "</b><br>Preis pro Nacht: <b>", Preis, "&euro;</b>")
+  ) %>% 
+  # Erstelle Plot
+  leaflet() %>% 
+  # Setze Anfangskoordinaten und Zoomwert
+  setView(lng = 13.40439, lat = 52.51128, zoom = 12) %>% 
+  # Zeichne Karte
+  addTiles() %>%
+  # Füge Marker hinzu
+  addCircleMarkers(
+    lng = ~Längengrad,
+    lat = ~Breitengrad,
+    radius = 4,
+    stroke = FALSE, fillOpacity = 0.5,
+    color = ~pal(Stadtteil),
+    label = ~lapply(info, HTML),
+    labelOptions = labelOptions(textsize = "15px")
+  ) %>% 
+  # Füge Legende hinzu
+  addLegend(pal = pal, values = ~Stadtteil, opacity = 1)
+  
+  
+})
+
+```
+
+
+
+Entwicklung über Zeit {data-orientation=columns}
+======================================================================
+
+
+
+Spalte 1
+----------------------------------------------------------------------
+
+### Entwicklung der Berliner Airbnbs seit 2009
+
+```{r}
+
+### Plot zum Verlauf über die Zeit
+renderPlotly({
+
+# Passe den Datensatz an
+Verlauf <- airbnb_dynamic() %>%
+  # Gruppiere über Stadtteile
+  group_by(Stadtteil) %>%
+  # Ordne Zeilen Aufsteigend nach Erstellungsdatum 
+  arrange(Erstellungsdatum) %>%
+  # Erstelle neue Variablen Datum und Kumulativ,
+  # letztere als 10er Logarithmus der Anzahl Airbnbs
+  mutate(Datum = Erstellungsdatum,
+         Kumulativ = log10(1:n())) %>%
+  # Gruppiere über Stadtteil, Datum, und Kumulativ Variablen
+  group_by(Stadtteil, Datum, Kumulativ) %>% 
+  # Berechne deskriptive Statistiken und erstelle Variable mit 
+  # Text für Popup Felder
+  summarise(
+    m_preis = mean(Preis, na.rm = TRUE),
+    superhosts = sum(Host_superhost, na.rm = TRUE),
+    m_rating = mean(Rating_gesamt, na.rm = TRUE),
+    hover_text = paste0("Mittlerer Preis: <b>", m_preis,
+                        "</b><br>Superhosts: <b>", superhosts,
+                        "</b><br>Mittleres Gesamtrating: <b>",
+                        m_rating, "</b>")
+  ) %>% 
+  # Erstelle den Plot mit Datum auf der x- und Kumulativ auf der y-Achse
+  # Separate und eingefärbte Linien pro Stadtteil
+  ggplot(aes(x = Datum, y = Kumulativ, col = Stadtteil)) +
+  # Zeichne Punkte ein; das text Argument wird später von ggplotly() verwendet
+  geom_point(aes(text = hover_text)) +
+  # Zeichne Linien
+  geom_line(show.legend = FALSE) +
+  # Definiere Farbwerte; Objekt farben stammt noch von der Karte auf p.1
+  scale_color_manual(values = farben_dynamic()) +
+  # Definiere y-Achsenbeschriftung; verwendet HTML wegen plotly
+  ylab("log<sub>10</sub>(Kumulative Häufigkeit)") +
+  # Definiere Plot design
+  theme_light()
+
+# Rufe ggplotly auf, um die Plotly Version zu erstellen
+ggplotly(Verlauf)
+
+})
+
+```
+
+Spalte 2 {data-width=300}
+----------------------------------------------------------------------
+
+### Hintergründe
+
+**Airbnbs in Berlin**
+
+Das erste Airbnb in Berlin öffnete 2009 im Stadtteil [Pankow](https://de.wikipedia.org/wiki/Berlin-Pankow) (siehe auch [Übersichtskarte](#page-1)). Von da an war ein rascher Anstieg zu verzeichnen. Bereits 6 Jahre später gab es in Berlin-Pankow alleine `r round(10**2.3)` Airbnbs. Mittlerweile ist diese Zahl auf rund `r round(10**3.2 / 100) * 100` angestiegen.
+
+Das teuerste heute verfügbare Airbnb kostet dabei `r max(airbnb$Preis)` pro Nacht; für die meisten Leute nicht gerade ein Schnäppchen. Dabei handelt es sich um ein `r airbnb$Unterkunftsart[max(airbnb$Preis)]` im Stadtteil `r airbnb$Stadtteil[max(airbnb$Preis)]`.
+
+Insgesammt wurden über die Jahre in Berlin `r as.integer(sum(airbnb$Host_anzahl))` Gäste in Airbnbs empfangen.
+
+Bewertungen der Airbnbs {.storyboard}
+======================================================================
+
+
+### <span style="font-size: 20px;">Gesamtrating</span> {data-commentary-width=300}
+
+```{r}
+
+## Erstelle das Histogramm der Gesamtratings
+
+renderPlot({
+  
+  # Wähle die Rating_gesamt Variable zum Plotten aus
+  ggplot(airbnb_dynamic(), aes(Rating_gesamt)) +
+    # Erstelle ein Histogramm mit Balkenbreite 1
+    geom_histogram(binwidth = 1) +
+    # Definiere die Achsenbeschriftungen
+    labs(x = "Gesamtrating",
+         y = "Häufigkeit") +
+    # Definiere den Range der x-Achse von 0 bis 100
+    coord_cartesian(xlim = c(0, 100)) +
+    # Wähle ein Design für den Plot
+    theme_light() +
+    # Vergrössere die Achsenbeschriftungen
+    theme(
+      axis.title = element_text(size = 16),
+      axis.text = element_text(size = 12)
+    ) 
+  
+})
+
+
+```
+
+
+*** 
+
+**Mittlere Gesamtratings**
+```{r fig.width=3,fig.height=1.5, fig.align="center"}
+
+renderGauge({
+  
+  # Berechne mittleres Gesamtrating und Runde auf eine Kommastelle
+  gesamtrating <- airbnb_dynamic() %>% 
+    pull(Rating_gesamt) %>% mean(na.rm = TRUE) %>% round(1)
+  
+  # Estelle den gauge mit dem gesamtrating Objekt
+  gauge(gesamtrating,
+        # Setze Minimu und Maximum Werte
+        min = 0, max = 100,
+        # Definiere Farbwerte mit gaugeSectors
+        gaugeSectors(
+          # Grün, wenn der Wert zwischen 80 und 100 liegt
+          success = c(80, 100),
+          # Orange, wenn der Wert zwischen 50 un 79 liegt
+          warning = c(50, 79),
+          # Rot, wenn der Wert zwischen 0 und 49 liegt
+          danger = c(0, 49)
+          ))
+    
+})
+
+```
+
+<p style="font-size: 20px;">Die Berliner Airbnbs scheinen allgemein in einem sehr guten Zustand zu sein. Zumindest lassen die hohen Gesamtratings darauf schliessen.</p>
+
+### <span style="font-size: 20px;">Sauberkeit</span> {data-commentary-width=300}
+
+```{r}
+renderPlot({
+  # Erstelle das Histogramm der Sauberkeitsratings
+  ggplot(airbnb_dynamic(), aes(Rating_sauberkeit)) +
+    geom_histogram(binwidth = 1) +
+    labs(x = "Sauberkeitsrating",
+         y = "Häufigkeit") +
+    coord_cartesian(xlim = c(0, 10)) +
+    theme_light() +
+    theme(
+      axis.title = element_text(size = 16),
+      axis.text = element_text(size = 12)
+    ) 
+
+})
+
+```
+
+*** 
+
+**Mittlere Sauberkeitsratings**
+```{r fig.width=3,fig.height=1.5, fig.align="center"}
+renderGauge({
+  # erstelle einen gauge der mittleren Sauberkeitsratings
+  sauberkeit <- airbnb_dynamic() %>% 
+    pull(Rating_sauberkeit) %>% mean(na.rm = TRUE) %>%  round(1)
+  gauge(sauberkeit, min = 0, max = 10, gaugeSectors(
+    success = c(8, 10), warning = c(5, 7), danger = c(0, 4)
+  ))
+  
+})
+
+```
+
+
+<p style="font-size: 20px;">Auch beim Thema Sauberkeit gehen viele Hosts keine Kompromisse ein. Es scheint jedoch ein paar faule Eier zu geben.</p>
+
+
+### <span style="font-size: 20px;">Lage</span> {data-commentary-width=300}
+
+```{r}
+renderPlot({
+  # Erstelle das Histogramm der Lageratings
+  ggplot(airbnb_dynamic(), aes(Rating_lage)) +
+    geom_histogram(binwidth = 1) +
+    labs(x = "Lagerating",
+         y = "Häufigkeit") +
+    coord_cartesian(xlim = c(0, 10)) +
+    theme_light() +
+    theme(
+      axis.title = element_text(size = 16),
+      axis.text = element_text(size = 12)
+    )
+
+})
+
+```
+
+*** 
+
+**Mittlere Lageratings**
+```{r fig.width=3,fig.height=1.5, fig.align="center"}
+
+renderGauge({
+  # erstelle einen gauge der mittleren Sauberkeitsratings
+  lage <- airbnb_dynamic() %>%
+    pull(Rating_lage) %>% mean(na.rm = TRUE) %>%  round(1)
+  gauge(lage, min = 0, max = 10, gaugeSectors(
+    success = c(8, 10), warning = c(5, 7), danger = c(0, 4)
+  ))
+
+})
+
+```
+
+<p style="font-size: 20px;">Verrückt; auch die Lageratings sind fast alle super. Entweder Berlin hat fast nur erstklassige Wohngebiete, viele der guten Wohnungen sind bei Airbnb vermietet, oder die Gäste sind sehr wohlwollend. Wir wissen es schlussendlich nicht (eine einfache Erklärung für die guten ratings könnte z.B. auch sein, dass gute Airbnbs einfach häufiger besucht werden).</p>
+

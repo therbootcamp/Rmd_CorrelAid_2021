@@ -1,0 +1,24 @@
+---
+title: "Bericht Berlin 2018/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Lade Pakete
+library(tidyverse)
+library(lubridate)
+
+# Lade airbnb Datensatz
+airbnb <- read_csv("../1_Data/airbnb.csv")
+
+# Wähle Jahre 2018 und 2019 aus
+airbnb_1819 <- airbnb %>% 
+  filter(Erstellungsdatum > "2018-01-01", 
+         Erstellungsdatum < "2019-12-31")
+```
+
+### Präambel
+
+Dieser Bericht analysiert Veränderungen in den Neueinstellungen und den Preisen von AirBnB Objekten in Berlin, Deutschland. Er wurde zum Zwecke der Übung auf Basis öffentlich verfügbarer Daten erstellt und repräsentiert einzig die Position der Autoren. Es besteht keine Beziehung zu AirBnB.  

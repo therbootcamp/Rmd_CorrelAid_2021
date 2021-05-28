@@ -1,0 +1,53 @@
+---
+title: "Airbnb in Berlin"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(raster)
+library(ggmap)
+library(rgdal)
+require(mapproj)
+require(knitr)
+require(patchwork)
+
+airbnb <- read_csv('airbnb.csv')
+berlin <- readRDS('berlin.RDS')
+
+theme_set(theme_minimal())
+```
+
+
+## Entwicklung
+
+Aktuell gibt es in Berlin `r nrow(berlin)` Airbnb Wohnungen. Im Vergleich zum Jahr  
+
+
+```{r cars, message = F, fig.asp=1}
+
+ggplot(airbnb, aes(x = Erstellungsdatum, y = Preis)) + geom_point() + geom_smooth() + scale_y_continuous(trans = 'log') 
+
+
+
+
+ggmap(berlin) + 
+  theme(axis.title = element_blank(),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  coord_map(ylim=c(52.45,52.58)) +
+  geom_point(airbnb, mapping = aes(x = Längengrad, y = Breitengrad,col=Stadtteil),size=.1)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
