@@ -3899,8 +3899,8 @@ crontab -e
   &lt;li class="m1"&gt;&lt;span&gt;Cron Jobs können mit dem &lt;high&gt;&lt;mono&gt;crontab&lt;/mono&gt;&lt;/high&gt; Befehl im Terminal definiert werden.&lt;/span&gt;&lt;/li&gt; 
   &lt;li class="m2"&gt;&lt;span&gt;Dabei kann folgende Syntax verwendet werden:&lt;/span&gt;&lt;/li&gt; 
   &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;*&lt;/mono&gt;: Alle Zahlen.&lt;/span&gt;&lt;/li&gt;
     &lt;li&gt;&lt;span&gt;Zahlen gemäss Erklärung rechts.&lt;/span&gt;&lt;/li&gt;   
-    &lt;li&gt;&lt;span&gt;&lt;mono&gt;*&lt;/mono&gt;: Alle Zahlen.&lt;/span&gt;&lt;/li&gt;  
     &lt;li&gt;&lt;span&gt;&lt;mono&gt;,&lt;/mono&gt;: Liste, z.B. &lt;mono&gt;1,5&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt; 
     &lt;li&gt;&lt;span&gt;&lt;mono&gt;-&lt;/mono&gt;: Spannweite, z.B. &lt;mono&gt;1-5&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
     &lt;li&gt;&lt;span&gt;&lt;mono&gt;*/&lt;/mono&gt;: Intervall, z.B. &lt;mono&gt;*/15&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
@@ -3934,6 +3934,176 @@ crontab -e
 
 ---
 
+# Cron Jobs
+
+.pull-left4[
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Cron Jobs können mit dem &lt;high&gt;&lt;mono&gt;crontab&lt;/mono&gt;&lt;/high&gt; Befehl im Terminal definiert werden.&lt;/span&gt;&lt;/li&gt; 
+  &lt;li class="m2"&gt;&lt;span&gt;Dabei kann folgende Syntax verwendet werden:&lt;/span&gt;&lt;/li&gt; 
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;*&lt;/mono&gt;: Alle Zahlen.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Zahlen gemäss Erklärung rechts.&lt;/span&gt;&lt;/li&gt;   
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;,&lt;/mono&gt;: Liste, z.B. &lt;mono&gt;1,5&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt; 
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;-&lt;/mono&gt;: Spannweite, z.B. &lt;mono&gt;1-5&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;*/&lt;/mono&gt;: Intervall, z.B. &lt;mono&gt;*/15&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+
+]
+
+.pull-right5[
+
+
+```r
+ ┌───────────── Minute (0 - 59)
+ │ ┌───────────── Stunde (0 - 23)
+ │ │ ┌───────────── Tag des Monats (1 - 31)
+ │ │ │ ┌───────────── Monat (1 - 12)
+ │ │ │ │ ┌───────────── Wochentag (0 - 6) 
+ │ │ │ │ │              (Sonn- bis Samstag)
+ │ │ │ │ │
+ │ │ │ │ │
+ 0 7 * * * &lt;Befehl&gt;
+```
+
+
+]
+
+
+
+
+---
+
+# Cron Jobs
+
+.pull-left4[
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Cron Jobs können mit dem &lt;high&gt;&lt;mono&gt;crontab&lt;/mono&gt;&lt;/high&gt; Befehl im Terminal definiert werden.&lt;/span&gt;&lt;/li&gt; 
+  &lt;li class="m2"&gt;&lt;span&gt;Dabei kann folgende Syntax verwendet werden:&lt;/span&gt;&lt;/li&gt; 
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;*&lt;/mono&gt;: Alle Zahlen.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Zahlen gemäss Erklärung rechts.&lt;/span&gt;&lt;/li&gt;   
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;,&lt;/mono&gt;: Liste, z.B. &lt;mono&gt;1,5&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt; 
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;-&lt;/mono&gt;: Spannweite, z.B. &lt;mono&gt;1-5&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;*/&lt;/mono&gt;: Intervall, z.B. &lt;mono&gt;*/15&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+
+]
+
+.pull-right5[
+
+
+```r
+ ┌───────────── Minute (0 - 59)
+ │ ┌───────────── Stunde (0 - 23)
+ │ │ ┌───────────── Tag des Monats (1 - 31)
+ │ │ │ ┌───────────── Monat (1 - 12)
+ │ │ │ │ ┌───────────── Wochentag (0 - 6) 
+ │ │ │ │ │              (Sonn- bis Samstag)
+ │ │ │ │ │
+ │ │ │ │ │
+ 0 7 * * 1,5 &lt;Befehl&gt;
+```
+
+
+]
+
+
+
+
+---
+
+# Cron Jobs
+
+.pull-left4[
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Cron Jobs können mit dem &lt;high&gt;&lt;mono&gt;crontab&lt;/mono&gt;&lt;/high&gt; Befehl im Terminal definiert werden.&lt;/span&gt;&lt;/li&gt; 
+  &lt;li class="m2"&gt;&lt;span&gt;Dabei kann folgende Syntax verwendet werden:&lt;/span&gt;&lt;/li&gt; 
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;*&lt;/mono&gt;: Alle Zahlen.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Zahlen gemäss Erklärung rechts.&lt;/span&gt;&lt;/li&gt;   
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;,&lt;/mono&gt;: Liste, z.B. &lt;mono&gt;1,5&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt; 
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;-&lt;/mono&gt;: Spannweite, z.B. &lt;mono&gt;1-5&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;*/&lt;/mono&gt;: Intervall, z.B. &lt;mono&gt;*/15&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+
+]
+
+.pull-right5[
+
+
+```r
+ ┌───────────── Minute (0 - 59)
+ │ ┌───────────── Stunde (0 - 23)
+ │ │ ┌───────────── Tag des Monats (1 - 31)
+ │ │ │ ┌───────────── Monat (1 - 12)
+ │ │ │ │ ┌───────────── Wochentag (0 - 6) 
+ │ │ │ │ │              (Sonn- bis Samstag)
+ │ │ │ │ │
+ │ │ │ │ │
+ 0 7 * * 1-5 &lt;Befehl&gt;
+```
+
+
+]
+
+
+
+
+---
+
+# Cron Jobs
+
+.pull-left4[
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Cron Jobs können mit dem &lt;high&gt;&lt;mono&gt;crontab&lt;/mono&gt;&lt;/high&gt; Befehl im Terminal definiert werden.&lt;/span&gt;&lt;/li&gt; 
+  &lt;li class="m2"&gt;&lt;span&gt;Dabei kann folgende Syntax verwendet werden:&lt;/span&gt;&lt;/li&gt; 
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;*&lt;/mono&gt;: Alle Zahlen.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Zahlen gemäss Erklärung rechts.&lt;/span&gt;&lt;/li&gt;   
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;,&lt;/mono&gt;: Liste, z.B. &lt;mono&gt;1,5&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt; 
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;-&lt;/mono&gt;: Spannweite, z.B. &lt;mono&gt;1-5&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;mono&gt;*/&lt;/mono&gt;: Intervall, z.B. &lt;mono&gt;*/15&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+
+]
+
+.pull-right5[
+
+
+```r
+ ┌───────────── Minute (0 - 59)
+ │   ┌───────────── Stunde (0 - 23)
+ │   │ ┌───────────── Tag des Monats (1 - 31)
+ │   │ │ ┌───────────── Monat (1 - 12)
+ │   │ │ │ ┌───────────── Wochentag (0 - 6) 
+ │   │ │ │ │              (Sonn- bis Samstag)
+ │   │ │ │ │
+ │   │ │ │ │
+*/15 * * * * &lt;Befehl&gt;
+```
+
+
+]
+
+
+---
+
 # Cron Jobs - Beispiel
 
 .pull-left3[
@@ -3948,18 +4118,6 @@ crontab -e
 
 .pull-right6[
 
-
-```r
- ┌───────────── Minute (0 - 59)
- │ ┌───────────── Stunde (0 - 23)
- │ │ ┌───────────── Tag des Monats (1 - 31)
- │ │ │ ┌───────────── Monat (1 - 12)
- │ │ │ │ ┌───────────── Wochentag (0 - 6) 
- │ │ │ │ │              (Sonn- bis Samstag)
- │ │ │ │ │
- │ │ │ │ │
- * * * * * &lt;Befehl&gt;
-```
 
 
 ```r
@@ -3997,9 +4155,9 @@ rmarkdown::render("PFAD/Bericht.Rmd")
 ]
 
 .pull-right5[
-&lt;br&gt;
 &lt;p align = "center"&gt;
-  &lt;img src="image/taskscheduleR-logo.png" width=200px&gt;
+  &lt;img src="image/cronR-rstudioaddin.png" width=300px&gt;&lt;br&gt;
+  &lt;font style="font-size:10px"&gt;from &lt;a href="https://github.com/bnosac/cronR"&gt;github.com/bnosac/cronR&lt;/a&gt;&lt;/font&gt;
 &lt;/p&gt;
 
 

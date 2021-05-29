@@ -3950,8 +3950,8 @@ crontab -e
   <li class="m1"><span>Cron Jobs können mit dem <high><mono>crontab</mono></high> Befehl im Terminal definiert werden.</span></li> 
   <li class="m2"><span>Dabei kann folgende Syntax verwendet werden:</span></li> 
   <ul>
+    <li><span><mono>*</mono>: Alle Zahlen.</span></li>
     <li><span>Zahlen gemäss Erklärung rechts.</span></li>   
-    <li><span><mono>*</mono>: Alle Zahlen.</span></li>  
     <li><span><mono>,</mono>: Liste, z.B. <mono>1,5</mono>.</span></li> 
     <li><span><mono>-</mono>: Spannweite, z.B. <mono>1-5</mono>.</span></li>
     <li><span><mono>*/</mono>: Intervall, z.B. <mono>*/15</mono>.</span></li>
@@ -3984,6 +3984,172 @@ crontab -e
 
 ---
 
+# Cron Jobs
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Cron Jobs können mit dem <high><mono>crontab</mono></high> Befehl im Terminal definiert werden.</span></li> 
+  <li class="m2"><span>Dabei kann folgende Syntax verwendet werden:</span></li> 
+  <ul>
+    <li><span><mono>*</mono>: Alle Zahlen.</span></li>
+    <li><span>Zahlen gemäss Erklärung rechts.</span></li>   
+    <li><span><mono>,</mono>: Liste, z.B. <mono>1,5</mono>.</span></li> 
+    <li><span><mono>-</mono>: Spannweite, z.B. <mono>1-5</mono>.</span></li>
+    <li><span><mono>*/</mono>: Intervall, z.B. <mono>*/15</mono>.</span></li>
+  </ul>
+</ul>
+
+
+
+]
+
+.pull-right5[
+
+```{r eval=FALSE, echo=TRUE}
+ ┌───────────── Minute (0 - 59)
+ │ ┌───────────── Stunde (0 - 23)
+ │ │ ┌───────────── Tag des Monats (1 - 31)
+ │ │ │ ┌───────────── Monat (1 - 12)
+ │ │ │ │ ┌───────────── Wochentag (0 - 6) 
+ │ │ │ │ │              (Sonn- bis Samstag)
+ │ │ │ │ │
+ │ │ │ │ │
+ 0 7 * * * <Befehl>
+```
+
+
+]
+
+
+
+
+---
+
+# Cron Jobs
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Cron Jobs können mit dem <high><mono>crontab</mono></high> Befehl im Terminal definiert werden.</span></li> 
+  <li class="m2"><span>Dabei kann folgende Syntax verwendet werden:</span></li> 
+  <ul>
+    <li><span><mono>*</mono>: Alle Zahlen.</span></li>
+    <li><span>Zahlen gemäss Erklärung rechts.</span></li>   
+    <li><span><mono>,</mono>: Liste, z.B. <mono>1,5</mono>.</span></li> 
+    <li><span><mono>-</mono>: Spannweite, z.B. <mono>1-5</mono>.</span></li>
+    <li><span><mono>*/</mono>: Intervall, z.B. <mono>*/15</mono>.</span></li>
+  </ul>
+</ul>
+
+
+
+]
+
+.pull-right5[
+
+```{r eval=FALSE, echo=TRUE}
+ ┌───────────── Minute (0 - 59)
+ │ ┌───────────── Stunde (0 - 23)
+ │ │ ┌───────────── Tag des Monats (1 - 31)
+ │ │ │ ┌───────────── Monat (1 - 12)
+ │ │ │ │ ┌───────────── Wochentag (0 - 6) 
+ │ │ │ │ │              (Sonn- bis Samstag)
+ │ │ │ │ │
+ │ │ │ │ │
+ 0 7 * * 1,5 <Befehl>
+```
+
+
+]
+
+
+
+
+---
+
+# Cron Jobs
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Cron Jobs können mit dem <high><mono>crontab</mono></high> Befehl im Terminal definiert werden.</span></li> 
+  <li class="m2"><span>Dabei kann folgende Syntax verwendet werden:</span></li> 
+  <ul>
+    <li><span><mono>*</mono>: Alle Zahlen.</span></li>
+    <li><span>Zahlen gemäss Erklärung rechts.</span></li>   
+    <li><span><mono>,</mono>: Liste, z.B. <mono>1,5</mono>.</span></li> 
+    <li><span><mono>-</mono>: Spannweite, z.B. <mono>1-5</mono>.</span></li>
+    <li><span><mono>*/</mono>: Intervall, z.B. <mono>*/15</mono>.</span></li>
+  </ul>
+</ul>
+
+
+
+]
+
+.pull-right5[
+
+```{r eval=FALSE, echo=TRUE}
+ ┌───────────── Minute (0 - 59)
+ │ ┌───────────── Stunde (0 - 23)
+ │ │ ┌───────────── Tag des Monats (1 - 31)
+ │ │ │ ┌───────────── Monat (1 - 12)
+ │ │ │ │ ┌───────────── Wochentag (0 - 6) 
+ │ │ │ │ │              (Sonn- bis Samstag)
+ │ │ │ │ │
+ │ │ │ │ │
+ 0 7 * * 1-5 <Befehl>
+```
+
+
+]
+
+
+
+
+---
+
+# Cron Jobs
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Cron Jobs können mit dem <high><mono>crontab</mono></high> Befehl im Terminal definiert werden.</span></li> 
+  <li class="m2"><span>Dabei kann folgende Syntax verwendet werden:</span></li> 
+  <ul>
+    <li><span><mono>*</mono>: Alle Zahlen.</span></li>
+    <li><span>Zahlen gemäss Erklärung rechts.</span></li>   
+    <li><span><mono>,</mono>: Liste, z.B. <mono>1,5</mono>.</span></li> 
+    <li><span><mono>-</mono>: Spannweite, z.B. <mono>1-5</mono>.</span></li>
+    <li><span><mono>*/</mono>: Intervall, z.B. <mono>*/15</mono>.</span></li>
+  </ul>
+</ul>
+
+
+
+]
+
+.pull-right5[
+
+```{r eval=FALSE, echo=TRUE}
+ ┌───────────── Minute (0 - 59)
+ │   ┌───────────── Stunde (0 - 23)
+ │   │ ┌───────────── Tag des Monats (1 - 31)
+ │   │ │ ┌───────────── Monat (1 - 12)
+ │   │ │ │ ┌───────────── Wochentag (0 - 6) 
+ │   │ │ │ │              (Sonn- bis Samstag)
+ │   │ │ │ │
+ │   │ │ │ │
+*/15 * * * * <Befehl>
+```
+
+
+]
+
+
+---
+
 # Cron Jobs - Beispiel
 
 .pull-left3[
@@ -3998,17 +4164,6 @@ crontab -e
 
 .pull-right6[
 
-```{r eval=FALSE, echo=TRUE}
- ┌───────────── Minute (0 - 59)
- │ ┌───────────── Stunde (0 - 23)
- │ │ ┌───────────── Tag des Monats (1 - 31)
- │ │ │ ┌───────────── Monat (1 - 12)
- │ │ │ │ ┌───────────── Wochentag (0 - 6) 
- │ │ │ │ │              (Sonn- bis Samstag)
- │ │ │ │ │
- │ │ │ │ │
- * * * * * <Befehl>
-```
 
 ```{r eval=FALSE, echo=TRUE}
 # Inhalt des Skripts "render_markdown.R"
@@ -4044,9 +4199,9 @@ rmarkdown::render("PFAD/Bericht.Rmd")
 ]
 
 .pull-right5[
-<br>
 <p align = "center">
-  <img src="image/taskscheduleR-logo.png" width=200px>
+  <img src="image/cronR-rstudioaddin.png" width=300px><br>
+  <font style="font-size:10px">from <a href="https://github.com/bnosac/cronR">github.com/bnosac/cronR</a></font>
 </p>
 
 
