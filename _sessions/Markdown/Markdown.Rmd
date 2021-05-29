@@ -1,6 +1,6 @@
 ---
 title: "Automatisierte Berichte mit R Markdown"
-author: "Dr. Markus Steiner<br>
+author: "Markus Steiner<br>
   <a href='https://therbootcamp.github.io'>
     The R Bootcamp
   </a>
@@ -3976,15 +3976,6 @@ crontab -e
  * * * * * <Befehl>
 ```
 
-```{r eval=FALSE, echo=TRUE}
-# Inhalt des Skripts "render_markdown.R"
-rmarkdown::render("PFAD/Markdown.Rmd")
-```
-
-```{bash eval=FALSE, echo=TRUE}
-* * * * * usr/R/local/bin/Rscript "PFAD/render_markdown.R"
-```
-
 
 ]
 
@@ -4104,4 +4095,6 @@ class: center,  middle
 class: middle, center
 
 <h1><a>Vielen Dank für die Aufmerksamkeit!</a></h1>
+<h3><a href="https://therbootcamp.github.io/Rmd_CorrelAid_2021/">Link zur Übersichtsseite</a></h3>
+
 

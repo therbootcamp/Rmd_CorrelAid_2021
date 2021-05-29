@@ -170,7 +170,7 @@ pre code {
 <col width='10%'>
 <tr style="border:none">
 <td style="display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none" nowrap>
-<font style='font-style:normal'>Übungen</font><br> <a href='https://therbootcamp.github.io/Rmd_CorrelAid_2021/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>The R Bootcamp</font> </a>
+<font style='font-style:normal'>Übungen zum CorrelAid Workshop</font><br> <a href='https://therbootcamp.github.io/Rmd_CorrelAid_2021/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>The R Bootcamp</font> </a>
 </td>
 <td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
@@ -193,8 +193,8 @@ pre code,  .md:not(.use-csslab) pre code {
 <h1 class="tabset"></h1>
 <div id="überblick" class="section level2">
 <h2>Überblick</h2>
-<p>In diesem Practical lernst du einen Bericht mit Markdown zu erstellen. Das Enprodukt ist der <code>airbnb_solution.html</code> Bericht im <code>3_markdown</code> Ordner.</p>
-<p>Am Ende des Practicals wirst du wissen wie man:</p>
+<p>In diesem Practical lernst du einen Bericht mit Markdown zu erstellen. Dazu wirst du zuerst einen .zip Ordner, mit den nötigen Materialien herunterladen (siehe <em>Aufgaben</em> Tab). Das Endprodukt ist der <code>airbnb_bericht_loesung.html</code> Bericht im <code>3_Markdown</code> Ordner diese .zip Ordners.</p>
+<p>Am Ende dieser Übung wirst du wissen wie man:</p>
 <ol style="list-style-type: decimal">
 <li>Text in das Dokument einfügt.</li>
 <li>Inline Code im Text verwendet.</li>
@@ -212,16 +212,16 @@ pre code,  .md:not(.use-csslab) pre code {
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
-<li><p>Lade den .zip Ordner mit den Inhalten, die für diese Übung wichtig sind <a href="https://www.dropbox.com/s/jomqnkoz9jucf7v/TheRBootcamp.zip?dl=1"><strong>von hier</strong></a> herunter und unzippe ihn.</p></li>
-<li><p>Gehe in den Ordner und öffne dein <code>TheRBootcamp</code> R Projekt. Es sollte die Ordner <code>1_Data</code>, <code>2_Assets</code>, und <code>3_Markdown</code> enthalten.</p></li>
-<li><p>Öffne ein neues RMarkdown Skript und wähle das Template “HTML” aus (siehe screenshot).</p></li>
+<li><p>Lade den <em>Mardown_Uebungen.zip</em> Ordner mit den Inhalten, die für diese Übung wichtig sind <a href="https://github.com/therbootcamp/Rmd_CorrelAid_2021/raw/master/Mardown_Uebungen.zip"><strong>von hier</strong></a> herunter und unzippe ihn.</p></li>
+<li><p>Gehe in den Ordner und öffne dein <code>Mardown_Uebungen</code> R Projekt. Es sollte die Ordner <code>1_Data</code>, <code>2_Assets</code>, und <code>3_Markdown</code> enthalten.</p></li>
+<li><p>Öffne ein neues RMarkdown Skript (<em>File</em> &gt; <em>New File</em> &gt; <em>R Markdown…</em>) und wähle das Template “HTML” aus (siehe Screenshot).</p></li>
 </ol>
 <p align="center" width="100%">
 <img src="image/markdown_menu.png" alt="Trulli" style="height:250px">
 </p>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Trage als Titel <code>Bericht Berlin 2018/2019</code> ein.</p></li>
-<li><p>Speichere das neue Markdown Skript unter dem Namen <code>Airbnb_level_one.Rmd</code> im <code>3_Markdown</code> Ordner ab.</p></li>
+<li><p>Speichere das neue Markdown Skript unter dem Namen <code>airbnb_bericht.Rmd</code> im <code>3_Markdown</code> Ordner ab.</p></li>
 <li><p>Lösche alles unterhalb des <code>setup</code> Code Chunks.</p></li>
 <li><p>Lade die Pakete <code>tidyverse</code>, <code>lubridate</code>, <code>knitr</code>, <code>kableExtra</code> und <code>sjPlot</code> im <code>setup</code> Chunk. Ggf. musst du die pakete erst installieren.</p></li>
 </ol>
@@ -275,11 +275,11 @@ Einstellungen von Airbnb Wohnungen haben im letzten Jahr stark zugenommen. Im Ja
 <ol start="3" style="list-style-type: decimal">
 <li>Tausche zunächst das Datum an zweiter Stelle im Text durch den folgenden inline Code aus. Nicht vergessen, der Code muss zwischen zwei Gravis (`r Code`) gesetzt werden. Knitte das Dokument.</li>
 </ol>
-<pre class="text"><code>r min(airbnb_1819$Erstellungsdatum)</code></pre>
+<pre class="text"><code>min(airbnb_1819$Erstellungsdatum)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Jetzt sollte der Text ein Datum enthalten, welches aber noch nicht ganz richtig formatiert ist. Hier hilft die <code>strftime()</code> Funktion. Versuche mit dem folgenden inline Code das Datum in das richtige Format zu bringen.</li>
 </ol>
-<pre class="text"><code>r strftime(min(airbnb_1819$Erstellungsdatum), &quot;%d.%m.%Y&quot;)</code></pre>
+<pre class="text"><code>strftime(min(airbnb_1819$Erstellungsdatum), &quot;%d.%m.%Y&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li><p>Als nächstes ersetze die Anzahl der Wohnungen durch <code>nrow(airbnb_1819)</code>. Nicht das <code>r</code> am Anfang vergessen!</p></li>
 <li><p>Ersetze nun Prozentsatz der Wohnungen durch <code>round(mean(airbnb_1819$Verfügbarkeit_90Tage &gt; 0) * 100)</code> und die durchschnittliche Verfügbarkeit durch <code>round(mean(airbnb_1819$Verfügbarkeit_90Tage[airbnb_1819$Verfügbarkeit_90Tage&gt;0]),1)</code>. Jetzt sollten alle Zahlen des ersten Absatz durch Code ersetzt worden sein. Überprüfe ob alles stimmt.</p></li>
@@ -349,7 +349,7 @@ stadtteile &lt;- airbnb_1819 %&gt;%
 <li><p>Ersetze nun die die zwei im ersten Paragraph erwähnten Stadtteile durch <code>stadtteile %&gt;% filter(Jahr == 2019) %&gt;% pull(Stadtteil) %&gt;% last()</code> und <code>stadtteile %&gt;% filter(Jahr == 2019) %&gt;% pull(Stadtteil) %&gt;% first()</code>. Knitte das Dokument und schaue, ob die richtigen Namen eingesetzt wurden.</p></li>
 <li><p>Kreiere einen neuen Chunk zwischen den beiden Absätzen mit dem folgenden Code, welcher einige Objekte erstellt, die die inline Ergänzungen im darauf folgenden Absatz erleichtern werden.</p></li>
 </ol>
-<pre><code># Veränderung über die Stadtteile
+<pre class="r"><code># Veränderung über die Stadtteile
 veränderung = stadtteile %&gt;% 
   group_by(Stadtteil) %&gt;% 
   summarize(veränderung = (100 * (Wohnungen[Jahr == 2019]/Wohnungen[Jahr == 2018] - 1)) %&gt;% round(1))
@@ -406,9 +406,9 @@ ggplot(stadtteile,
 <ol style="list-style-type: decimal">
 <li><p>Nun geht es darum die Darstellung der Grafiken zu verbessern und Bildunterschriften einzufügen. Setze zunächst das Seitenverhältnis der ersten Grafik auf .5 (<code>fig.asp = .5</code>). Knitte das Dokument. Die Grafik sollte nun schmaler sein.</p></li>
 <li><p>Füge <code>fig.cap = cap</code> in den Optionen des Chunks der ersten Grafik ein. Dies wird dir ermöglichen gleich die Bildunterschrift im Chunk zu definieren.</p></li>
-<li><p>Am Ende des Grafik Chunks ergänze nun <code>cap = "Abbildung 1. Neueinstellungen pro Monat."</code>. Knitte das Dokument. Du solltest nun eine Bildunterschrift sehen.</p></li>
+<li><p>Am Ende des Grafik Chunks ergänze nun <code>cap &lt;- "Abbildung 1. Neueinstellungen pro Monat."</code>. Knitte das Dokument. Du solltest nun eine Bildunterschrift sehen.</p></li>
 <li><p>Weitere zur nächsten Grafik. Setze das Seitenverhältnis für die zweite Grafik auf .5.</p></li>
-<li><p>Füge nun zunächst <code>fig.cap = cap</code> in den Optionen des Chunks der zweiten Grafik ein und dann innerhalb des Chunks <code>cap = Abbildung 2. Neueinstellungen pro Bezirk.</code>.</p></li>
+<li><p>Füge nun zunächst <code>fig.cap = cap</code> in den Optionen des Chunks der zweiten Grafik ein und dann innerhalb des Chunks <code>cap &lt;- "Abbildung 2. Neueinstellungen pro Bezirk."</code>.</p></li>
 <li><p><code>Knitte</code> das Dokument. Sieht alles in Ordnung aus?</p></li>
 </ol>
 </div>
@@ -485,9 +485,9 @@ ausstattung %&gt;% pull(Differenz) %&gt;% last() %&gt;% round(1)</code></pre>
 <pre class="r"><code># Plotte Tabelle mit Austattungsmerkmalen
 ausstattung %&gt;% kable(format = &#39;html&#39;)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Beschränke die Anzahl Nachkommastellen mit <code>digits = 2</code> auf zwei.</p></li>
-<li><p>Füge eine Tabellenüberschrift mit <code>caption = 'Tabelle 1. Austattung und Einfluss auf den Preis'</code> ein.</p></li>
-<li><p>Passe die Namen der Spalten an, inklusive neuer Zeilenumbrüche mit <code>&lt;br&gt;</code>: <code>col.names = c('', 'Preis&lt;br&gt;Nicht-vorh.', 'Preis&lt;br&gt;vorh.', 'Differenz', 'Prozent&lt;br&gt;vorh.')</code></p></li>
+<li><p>In der <code>kable()</code> Funktion, beschränke die Anzahl Nachkommastellen mit <code>digits = 2</code> auf zwei.</p></li>
+<li><p>In der <code>kable()</code> Funktion, füge eine Tabellenüberschrift mit <code>caption = 'Tabelle 1. Austattung und Einfluss auf den Preis'</code> ein.</p></li>
+<li><p>In der <code>kable()</code> Funktion, passe die Namen der Spalten an, inklusive neuer Zeilenumbrüche mit <code>&lt;br&gt;</code>: <code>col.names = c('', 'Preis&lt;br&gt;Nicht-vorh.', 'Preis&lt;br&gt;vorh.', 'Differenz', 'Prozent&lt;br&gt;vorh.')</code></p></li>
 <li><p><code>Knitte</code> das Dokument. Du wirst bemerken, dass die Spaltenbeschriftung nicht korrekt übersetzt wird. Verwende als weiteres Argument <code>escape = FALSE</code> um dieses Problem zu korrigieren.</p></li>
 <li><p>Lege die Ausrichtung der Zellen mit <code>align = "lcccc"</code> fest. Jeder Buchstabe legt die Ausrichtung für eine Spalte fest. <code>l</code> bedeutet left und <code>c</code> center.</p></li>
 <li><p>Nun vergrössere die Breite der Spalten in dem du <code>column_spec()</code> hinter der <code>kable()</code> Funktion verwendest.</p></li>
@@ -499,9 +499,9 @@ ausstattung %&gt;% kable(format = &#39;html&#39;)</code></pre>
 <li>Abschliessend, gestalte die Schrifgrösse der Zellen in Abhängigkeit der Grösse der abgebildeten Zahl. Füge dafür vor der <code>kable()</code> Funktion folgenden Code ein und verbinde die beiden Teile mit einer Pipe <code>%&gt;%</code>.</li>
 </ol>
 <pre class="r"><code>ausstattung %&gt;% 
-  mutate_if(is.numeric, function(x) {
+  mutate(across(where(is.numeric), function(x) {
             cell_spec(round(x,1), bold = T, 
-            font_size = spec_font_size(x, begin=10, end=16))}) %&gt;% 
+            font_size = spec_font_size(x, begin=10, end=16))})) %&gt;% 
   kable(...) %&gt;% 
   column_spec(...)</code></pre>
 <ol start="9" style="list-style-type: decimal">
@@ -550,7 +550,7 @@ Der Anteil von Hotels ist von 1.1% im Jahre 2018 auf 1.4% im Jahre 2019 gestiege
 </ol>
 <pre class="r"><code>coefficients(ausstattung_mod)[&#39;HotelTRUE&#39;] %&gt;% round(1)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Hebe zum Abschluss den 2. (“Überraschenderweise …”) und 4. Absatz (“Der Anteil …”) fett hervor.</p></li>
+<li><p>Hebe zum Abschluss den 3. (“Überraschenderweise …”) und 5. Absatz (“Der Anteil …”) fett hervor.</p></li>
 <li><p><code>Knitte</code> das Dokument. Sieht alles in Ordnung aus?</p></li>
 </ol>
 </div>
@@ -606,12 +606,12 @@ tab_model(ausstattung_mod)</code></pre>
 <div id="q---css-funktionen-anpassen" class="section level3">
 <h3>Q - CSS Funktionen anpassen</h3>
 <ol style="list-style-type: decimal">
-<li>Die Bildunterschriften sind noch nicht zentriert. Setze das HTML Tag <code>center</code> um die beiden <code>cap</code> Definitionen der Grafiken. Siehe Code.</li>
+<li>Die Bildunterschriften sind noch nicht zentriert. Setze den HTML Tag <code>center</code> um die beiden <code>cap</code> Definitionen der Grafiken. Siehe Code.</li>
 </ol>
-<pre class="r"><code>&quot;&lt;center&gt;Abbildung 1. Neueinstellungen pro Monat&lt;/center&gt;&quot;
-&quot;&lt;center&gt;Abbildung 2. Neueinstellungen pro Bezirk&lt;/center&gt;&quot;</code></pre>
+<pre class="r"><code>&quot;&lt;center&gt;Abbildung 1. Neueinstellungen pro Monat.&lt;/center&gt;&quot;
+&quot;&lt;center&gt;Abbildung 2. Neueinstellungen pro Bezirk.&lt;/center&gt;&quot;</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>In der Regressions-Tabelle, die Du mit <code>sjPlot</code> erstellt hast, ergänze <code>CSS = list(css.caption = "font-weight: 500")</code> um die Schrift anzupassen</p></li>
+<li><p>In der Regressions-Tabelle, die Du mit <code>tab_model</code> erstellt hast, ergänze <code>CSS = list(css.caption = "font-weight: 500")</code> um die Schrift anzupassen</p></li>
 <li><p>Im gleichen Argument füge <code>css.table = "width: auto; margin-right: 0px;margin-left: auto;"</code> zusätzlich in die <code>list</code> ein, um die Tabelle rechts auszurichten.</p></li>
 </ol>
 </div>
@@ -652,7 +652,7 @@ tab_model(ausstattung_mod)</code></pre>
   &lt;tr&gt;
   &lt;td&gt;</code></pre>
 <ol start="6" style="list-style-type: decimal">
-<li>Nach dem in fett gesetzten Absatz “Die grösste Veränderung…” und dem Grafik-Chunk füge den folgenden Code ein. Noch nicht Knitten!</li>
+<li>Nach dem Absatz “Die grösste Veränderung…” und dem Grafik-Chunk füge den folgenden Code ein. Noch nicht Knitten!</li>
 </ol>
 <pre class="r"><code>  &lt;/td&gt;
   &lt;td&gt;
@@ -667,7 +667,7 @@ tab_model(ausstattung_mod)</code></pre>
 &lt;/table&gt;</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li><p>Knitte jetzt wieder das Dokument. Sind der Text und die Grafik nun in 2 Spalten gesetzt?</p></li>
-<li><p>Für den Abschnitt <code>###Preis</code> gehe gleich vor. Ergänze nach dem ersten Code-Chunk mit Berechnungen zur Ausstattung und vor dem ersten Absatz den folgenden Code. Noch nicht Knitten!</p></li>
+<li><p>Für den Abschnitt <code>### Preis</code> gehe gleich vor. Ergänze nach dem ersten Code-Chunk mit Berechnungen zur Ausstattung und vor dem ersten Absatz den folgenden Code. Noch nicht Knitten!</p></li>
 </ol>
 <pre class="r"><code>&lt;table width=100%&gt;
 &lt;col width = 25%&gt;
@@ -727,8 +727,7 @@ tab_model(ausstattung_mod)</code></pre>
   background-size: contain;
   }</code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Knitte dein Dokument. Du solltest nun einen wohlformatierten AirBnB Bericht vor dir haben.</p></li>
-<li><p>Speichere das fertige Dokument unter: <code>3_Markdown/airbnb_final.Rmd</code> ab.</p></li>
+<li>Knitte dein Dokument. Du solltest nun einen wohlformatierten AirBnB Bericht vor dir haben.</li>
 </ol>
 </div>
 </div>

@@ -3,7 +3,7 @@ title: "Automatisierte Berichte mit R Markdown"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
-      <font style='font-style:normal'>Übungen</font><br>
+      <font style='font-style:normal'>Übungen zum CorrelAid Workshop</font><br>
       <a href='https://therbootcamp.github.io/Rmd_CorrelAid_2021/'>
         <i class='fas fa-clock' style='font-size:.9em;' ></i>
       </a>
@@ -66,9 +66,9 @@ library(lubridate)
 
 ## Überblick
 
-In diesem Practical lernst du einen Bericht mit Markdown zu erstellen. Das Enprodukt ist der `airbnb_solution.html` Bericht im `3_markdown` Ordner.
+In diesem Practical lernst du einen Bericht mit Markdown zu erstellen. Dazu wirst du zuerst einen .zip Ordner, mit den nötigen Materialien herunterladen (siehe *Aufgaben* Tab). Das Endprodukt ist der `airbnb_bericht_loesung.html` Bericht im `3_Markdown` Ordner diese .zip Ordners.
 
-Am Ende des Practicals wirst du wissen wie man:
+Am Ende dieser Übung wirst du wissen wie man:
 
 1. Text in das Dokument einfügt.
 2. Inline Code im Text verwendet. 
@@ -85,11 +85,11 @@ Am Ende des Practicals wirst du wissen wie man:
 
 ### A - Setup
 
-1. Lade den .zip Ordner mit den Inhalten, die für diese Übung wichtig sind [**von hier**](https://www.dropbox.com/s/jomqnkoz9jucf7v/TheRBootcamp.zip?dl=1) herunter und unzippe ihn.
+1. Lade den *Mardown_Uebungen.zip* Ordner mit den Inhalten, die für diese Übung wichtig sind [**von hier**](https://github.com/therbootcamp/Rmd_CorrelAid_2021/raw/master/Mardown_Uebungen.zip) herunter und unzippe ihn.
 
-2. Gehe in den Ordner und öffne dein `TheRBootcamp` R Projekt. Es sollte die Ordner `1_Data`, `2_Assets`, und `3_Markdown` enthalten. 
+2. Gehe in den Ordner und öffne dein `Mardown_Uebungen` R Projekt. Es sollte die Ordner `1_Data`, `2_Assets`, und `3_Markdown` enthalten. 
 
-3. Öffne ein neues RMarkdown Skript und wähle das Template "HTML" aus (siehe screenshot).
+3. Öffne ein neues RMarkdown Skript (*File* > *New File* > *R Markdown...*) und wähle das Template "HTML" aus (siehe Screenshot).
 
 <p align="center" width="100%">
   <img src="image/markdown_menu.png" alt="Trulli" style="height:250px">
@@ -97,7 +97,7 @@ Am Ende des Practicals wirst du wissen wie man:
 
 4. Trage als Titel `Bericht Berlin 2018/2019` ein.
 
-5. Speichere das neue Markdown Skript unter dem Namen `Airbnb_level_one.Rmd` im `3_Markdown` Ordner ab.
+5. Speichere das neue Markdown Skript unter dem Namen `airbnb_bericht.Rmd` im `3_Markdown` Ordner ab.
 
 6. Lösche alles unterhalb des `setup` Code Chunks.
 
@@ -165,13 +165,13 @@ Einstellungen von Airbnb Wohnungen haben im letzten Jahr stark zugenommen. Im Ja
 3. Tausche zunächst das Datum an zweiter Stelle im Text durch den folgenden inline Code aus. Nicht vergessen, der Code muss zwischen zwei Gravis (&grave;r Code&grave;) gesetzt werden. Knitte das Dokument.  
 
 ````text
-r min(airbnb_1819$Erstellungsdatum)
+min(airbnb_1819$Erstellungsdatum)
 ````
 
 4. Jetzt sollte der Text ein Datum enthalten, welches aber noch nicht ganz richtig formatiert ist. Hier hilft die `strftime()` Funktion. Versuche mit dem folgenden inline Code das Datum in das richtige Format zu bringen.   
 
 ````text
-r strftime(min(airbnb_1819$Erstellungsdatum), "%d.%m.%Y")
+strftime(min(airbnb_1819$Erstellungsdatum), "%d.%m.%Y")
 ````
 5. Als nächstes ersetze die Anzahl der Wohnungen durch `nrow(airbnb_1819)`. Nicht das `r` am Anfang vergessen! 
 
@@ -249,7 +249,7 @@ Knitte das Dokument und schaue, ob die richtigen Namen eingesetzt wurden.
 
 5. Kreiere einen neuen Chunk zwischen den beiden Absätzen mit dem folgenden Code, welcher einige Objekte erstellt, die die inline Ergänzungen im darauf folgenden Absatz erleichtern werden.  
 
-```
+```R
 # Veränderung über die Stadtteile
 veränderung = stadtteile %>% 
   group_by(Stadtteil) %>% 
@@ -310,11 +310,11 @@ ggplot(stadtteile,
 
 2. Füge `fig.cap = cap` in den Optionen des Chunks der ersten Grafik ein. Dies wird dir ermöglichen gleich die Bildunterschrift im Chunk zu definieren.
 
-3. Am Ende des Grafik Chunks ergänze nun `cap = "Abbildung 1. Neueinstellungen pro Monat."`. Knitte das Dokument. Du solltest nun eine Bildunterschrift sehen.
+3. Am Ende des Grafik Chunks ergänze nun `cap <- "Abbildung 1. Neueinstellungen pro Monat."`. Knitte das Dokument. Du solltest nun eine Bildunterschrift sehen.
 
 4. Weitere zur nächsten Grafik. Setze das Seitenverhältnis für die zweite Grafik auf .5.
 
-5. Füge nun zunächst `fig.cap = cap` in den Optionen des Chunks der zweiten Grafik ein und dann innerhalb des Chunks `cap = Abbildung 2. Neueinstellungen pro Bezirk.`. 
+5. Füge nun zunächst `fig.cap = cap` in den Optionen des Chunks der zweiten Grafik ein und dann innerhalb des Chunks `cap <- "Abbildung 2. Neueinstellungen pro Bezirk."`. 
 
 6. `Knitte` das Dokument. Sieht alles in Ordnung aus?  
 
@@ -406,11 +406,11 @@ Der stark negative Effekt der Küche überrascht, er könnte jedoch durch die
 ausstattung %>% kable(format = 'html')
 ```
 
-2. Beschränke die Anzahl Nachkommastellen mit `digits = 2` auf zwei.
+2. In der `kable()` Funktion, beschränke die Anzahl Nachkommastellen mit `digits = 2` auf zwei.
 
-3. Füge eine Tabellenüberschrift mit `caption = 'Tabelle 1. Austattung und Einfluss auf den Preis'` ein.
+3. In der `kable()` Funktion, füge eine Tabellenüberschrift mit `caption = 'Tabelle 1. Austattung und Einfluss auf den Preis'` ein.
 
-4. Passe die Namen der Spalten an, inklusive neuer Zeilenumbrüche mit `<br>`: `col.names = c('', 'Preis<br>Nicht-vorh.', 'Preis<br>vorh.', 'Differenz', 'Prozent<br>vorh.')`
+4. In der `kable()` Funktion, passe die Namen der Spalten an, inklusive neuer Zeilenumbrüche mit `<br>`: `col.names = c('', 'Preis<br>Nicht-vorh.', 'Preis<br>vorh.', 'Differenz', 'Prozent<br>vorh.')`
 
 5. `Knitte` das Dokument. Du wirst bemerken, dass die Spaltenbeschriftung nicht korrekt übersetzt wird. Verwende als weiteres Argument `escape = FALSE` um dieses Problem zu korrigieren. 
 
@@ -428,9 +428,9 @@ ausstattung %>%
 
 ```R
 ausstattung %>% 
-  mutate_if(is.numeric, function(x) {
+  mutate(across(where(is.numeric), function(x) {
             cell_spec(round(x,1), bold = T, 
-            font_size = spec_font_size(x, begin=10, end=16))}) %>% 
+            font_size = spec_font_size(x, begin=10, end=16))})) %>% 
   kable(...) %>% 
   column_spec(...)
 ```
@@ -485,7 +485,7 @@ Der Anteil von Hotels ist von 1.1% im Jahre 2018 auf 1.4% im Jahre 2019 gestiege
 coefficients(ausstattung_mod)['HotelTRUE'] %>% round(1)
 ```
 
-5. Hebe zum Abschluss den 2. ("Überraschenderweise ...") und 4. Absatz ("Der Anteil ...") fett hervor.
+5. Hebe zum Abschluss den 3. ("Überraschenderweise ...") und 5. Absatz ("Der Anteil ...") fett hervor.
 
 6. `Knitte` das Dokument. Sieht alles in Ordnung aus?  
 
@@ -552,14 +552,14 @@ ggplot <- function(...) ggplot2::ggplot(...) +
 
 ### Q - CSS Funktionen anpassen
 
-1. Die Bildunterschriften sind noch nicht zentriert. Setze das HTML Tag `center` um die beiden `cap` Definitionen der Grafiken. Siehe Code. 
+1. Die Bildunterschriften sind noch nicht zentriert. Setze den HTML Tag `center` um die beiden `cap` Definitionen der Grafiken. Siehe Code. 
 
 ```R
-"<center>Abbildung 1. Neueinstellungen pro Monat</center>"
-"<center>Abbildung 2. Neueinstellungen pro Bezirk</center>"
+"<center>Abbildung 1. Neueinstellungen pro Monat.</center>"
+"<center>Abbildung 2. Neueinstellungen pro Bezirk.</center>"
 ```
 
-2. In der Regressions-Tabelle, die Du mit `sjPlot` erstellt hast, ergänze `CSS = list(css.caption = "font-weight: 500")` um die Schrift anzupassen
+2. In der Regressions-Tabelle, die Du mit `tab_model` erstellt hast, ergänze `CSS = list(css.caption = "font-weight: 500")` um die Schrift anzupassen
 
 3. Im gleichen Argument füge `css.table = "width: auto; margin-right: 0px;margin-left: auto;"` zusätzlich in die `list` ein, um die Tabelle rechts auszurichten.
 
@@ -606,7 +606,7 @@ Setze folgenden HTML Code im Abschnitt Entwicklung ein - damit positionierst du 
   <tr>
   <td>
 ```
-6. Nach dem in fett gesetzten Absatz "Die grösste Veränderung..." und dem Grafik-Chunk füge den folgenden Code ein. Noch nicht Knitten!
+6. Nach dem Absatz "Die grösste Veränderung..." und dem Grafik-Chunk füge den folgenden Code ein. Noch nicht Knitten!
 
 ```R
   </td>
@@ -626,7 +626,7 @@ Setze folgenden HTML Code im Abschnitt Entwicklung ein - damit positionierst du 
 
 8. Knitte jetzt wieder das Dokument. Sind der Text und die Grafik nun in 2 Spalten gesetzt? 
 
-9. Für den Abschnitt `###Preis` gehe gleich vor. Ergänze nach dem ersten Code-Chunk mit Berechnungen zur Ausstattung und vor dem ersten Absatz den folgenden Code. Noch nicht Knitten!
+9. Für den Abschnitt `### Preis` gehe gleich vor. Ergänze nach dem ersten Code-Chunk mit Berechnungen zur Ausstattung und vor dem ersten Absatz den folgenden Code. Noch nicht Knitten!
 
 ```R
 <table width=100%>
@@ -702,9 +702,6 @@ body {
 ```
 
 7. Knitte dein Dokument. Du solltest nun einen wohlformatierten AirBnB Bericht vor dir haben. 
-
-8. Speichere das fertige Dokument unter: `3_Markdown/airbnb_final.Rmd` ab.
-
 
 
 ## Datensatz
