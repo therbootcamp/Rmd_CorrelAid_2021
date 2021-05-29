@@ -4086,16 +4086,16 @@ crontab -e
 .pull-right5[
 
 
-```r
- ┌───────────── Minute (0 - 59)
- │   ┌───────────── Stunde (0 - 23)
- │   │ ┌───────────── Tag des Monats (1 - 31)
- │   │ │ ┌───────────── Monat (1 - 12)
- │   │ │ │ ┌───────────── Wochentag (0 - 6) 
- │   │ │ │ │              (Sonn- bis Samstag)
- │   │ │ │ │
- │   │ │ │ │
-*/15 * * * * &lt;Befehl&gt;
+```bash
+  ┌───────────── Minute (0 - 59)
+  │   ┌───────────── Stunde (0 - 23)
+  │   │ ┌───────────── Tag des Monats (1 - 31)
+  │   │ │ ┌───────────── Monat (1 - 12)
+  │   │ │ │ ┌───────────── Wochentag (0 - 6) 
+  │   │ │ │ │              (Sonn- bis Samstag)
+  │   │ │ │ │
+  │   │ │ │ │
+ */15 * * * * &lt;Befehl&gt;
 ```
 
 
@@ -4121,13 +4121,13 @@ crontab -e
 
 
 ```r
-# Inhalt des Skripts "render_markdown.R"
+# Inhalt des Skripts "render_rmd.R"
 rmarkdown::render("PFAD/Bericht.Rmd")
 ```
 
 
 ```bash
-0 7 * * 1-5 usr/R/local/bin/Rscript "PFAD/render_markdown.R"
+0 7 * * 1-5 usr/R/local/bin/Rscript "PFAD/render_rmd.R"
 ```
 
 
@@ -4138,9 +4138,10 @@ rmarkdown::render("PFAD/Bericht.Rmd")
 
 ---
 
-# Hilfspakete für Cron Jobs
 
 .pull-left4[
+
+# Hilfspakete für Cron Jobs
 
 &lt;ul&gt;
   &lt;li class="m1"&gt;&lt;span&gt;In R gibt es Hilfspakete, die das erstellen von Cron Jobs erleichtern:&lt;/span&gt;&lt;/li&gt; 
@@ -4155,9 +4156,44 @@ rmarkdown::render("PFAD/Bericht.Rmd")
 ]
 
 .pull-right5[
+&lt;br&gt;
 &lt;p align = "center"&gt;
-  &lt;img src="image/cronR-rstudioaddin.png" width=300px&gt;&lt;br&gt;
+  &lt;img src="image/cronR-rstudioaddin.png" width=350px&gt;&lt;br&gt;
   &lt;font style="font-size:10px"&gt;from &lt;a href="https://github.com/bnosac/cronR"&gt;github.com/bnosac/cronR&lt;/a&gt;&lt;/font&gt;
+&lt;/p&gt;
+
+
+]
+
+
+
+
+---
+
+# Hilfspakete für Cron Jobs
+
+
+.pull-left4[
+
+
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;In R gibt es Hilfspakete, die das erstellen von Cron Jobs erleichtern:&lt;/span&gt;&lt;/li&gt; 
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;&lt;a href="https://CRAN.R-project.org/package=cronR"&gt;&lt;mono&gt;cronR&lt;/mono&gt;&lt;/a&gt; für Mac / Linux&lt;/span&gt;&lt;/li&gt;   
+    &lt;li&gt;&lt;span&gt;&lt;a href="https://CRAN.R-project.org/package=taskscheduleR"&gt;&lt;mono&gt;taskscheduleR&lt;/mono&gt;&lt;/a&gt; für Windows&lt;/span&gt;&lt;/li&gt;  
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+
+]
+
+.pull-right5[
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/taskscheduleR-rstudioaddin.png" width=400px&gt;&lt;br&gt;
+  &lt;font style="font-size:10px"&gt;from &lt;a href="https://github.com/bnosac/taskscheduleR"&gt;github.com/bnosac/taskscheduleR&lt;/a&gt;&lt;/font&gt;
 &lt;/p&gt;
 
 
