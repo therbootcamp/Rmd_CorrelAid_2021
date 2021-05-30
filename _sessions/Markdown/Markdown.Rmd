@@ -482,7 +482,7 @@ class: center,  middle
 ---
 
 
-# Rendern
+# Übersetzen / Knitten
 
 .pull-left4[
 
