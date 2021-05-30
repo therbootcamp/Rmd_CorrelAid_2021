@@ -450,6 +450,38 @@ class: center,  middle
 ---
 
 
+# Rendern
+
+.pull-left4[
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Zwei Möglichkeiten Dokument zu rendern:&lt;/span&gt;&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;Code&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;RStudio GUI&lt;/span&gt;&lt;/li&gt;   
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+&lt;br&gt;
+
+
+```r
+rmarkdown::render("PFAD/dokument.Rmd")
+```
+
+
+]
+
+.pull-right5[
+
+&lt;br&gt;
+&lt;p align = "center"&gt;
+  &lt;img src="image/knit.png"&gt;
+&lt;/p&gt;
+
+]
+
+---
 class: center,  middle
 
 &lt;h1&gt;&lt;a&gt;Berichterstellung mit R Markdown&lt;/h1&gt;
@@ -1070,6 +1102,38 @@ class: center,  middle
 &lt;br&gt;
 &lt;p align = "center"&gt;
   &lt;img src="image/markdown_trans_10.png"&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+# Chunks
+
+.pull-left4[
+
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Chunks können entweder manuell oder via RStudio GUI eingefügt werden.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;br&gt;
+
+````markdown
+
+```{r}
+
+```
+
+````
+
+]
+
+.pull-right5[
+
+&lt;br&gt;
+&lt;p align = "center"&gt;
+  &lt;img src="image/chunk.png"&gt;
 &lt;/p&gt;
 
 ]
@@ -3809,7 +3873,7 @@ ggplot &lt;- function(...) {
 airbnb_plot
 ```
 
-&lt;img src="Markdown_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="Markdown_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 

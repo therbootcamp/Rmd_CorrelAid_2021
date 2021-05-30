@@ -482,6 +482,37 @@ class: center,  middle
 ---
 
 
+# Rendern
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Zwei Möglichkeiten Dokument zu rendern:</span></li>
+  <ul>
+    <li><span>Code</span></li>
+    <li><span>RStudio GUI</span></li>   
+  </ul>
+</ul>
+
+<br>
+
+```{r eval=FALSE, echo=TRUE}
+rmarkdown::render("PFAD/dokument.Rmd")
+```
+
+
+]
+
+.pull-right5[
+
+<br>
+<p align = "center">
+  <img src="image/knit.png">
+</p>
+
+]
+
+---
 class: center,  middle
 
 <h1><a>Berichterstellung mit R Markdown</h1>
@@ -1102,6 +1133,38 @@ class: center,  middle
 <br>
 <p align = "center">
   <img src="image/markdown_trans_10.png">
+</p>
+
+]
+
+---
+
+# Chunks
+
+.pull-left4[
+
+
+<ul>
+  <li class="m1"><span>Chunks können entweder manuell oder via RStudio GUI eingefügt werden.</span></li>
+</ul>
+
+<br>
+
+````markdown
+
+`r ''````{r}
+
+```
+
+````
+
+]
+
+.pull-right5[
+
+<br>
+<p align = "center">
+  <img src="image/chunk.png">
 </p>
 
 ]
