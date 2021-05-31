@@ -43,8 +43,8 @@ output:
 
 #### R Markdown
 - Allgemeiner Einstieg in [**R Markdown**](https://rmarkdown.rstudio.com/lesson-1.html).
-- [**DIE Referenz**](https://bookdown.org/yihui/rmarkdown/) für RMarkdown bis ins letzte Detail.
-- [**Rmarkdown**](https://cran.r-project.org/web/packages/rmarkdown/index.html) Dokumentation und Befehlsreferenz.
+- [**DIE Referenz**](https://bookdown.org/yihui/rmarkdown/) für R Markdown bis ins letzte Detail.
+- [**R Markdown**](https://cran.r-project.org/web/packages/rmarkdown/index.html) Dokumentation und Befehlsreferenz.
 
 #### Cronjobs
 - Allgemeine Infos zu  [**Cronjobs**](https://de.wikipedia.org/wiki/Cron).
