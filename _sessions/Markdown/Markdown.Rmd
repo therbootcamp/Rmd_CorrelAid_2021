@@ -3820,7 +3820,7 @@ css: "../2_Assets/styling.csv")
 # CSS
 
 <ul>
-  <li class="m1"><span>Mit <b>C</b>ascading <b>S</b>tyle <b>S</b>sheets können alle <high>ästhetischen Charakteristika</high> von <high>HTML</high> Dokumenten über eine externe Datei bestimmt werden.</span></li>
+  <li class="m1"><span>Mit <b>C</b>ascading <b>S</b>tyle <b>S</b>heets können alle <high>ästhetischen Charakteristika</high> von <high>HTML</high> Dokumenten über eine externe Datei bestimmt werden.</span></li>
   <li class="m2"><span>CSS erlaubt komplexe <high>Vererbungen des Stils</high> zwischen HTML Tags.</span></li> 
 </ul>
 

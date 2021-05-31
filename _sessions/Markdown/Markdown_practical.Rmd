@@ -66,7 +66,7 @@ library(lubridate)
 
 ## Überblick
 
-In diesem Practical lernst du einen Bericht mit Markdown zu erstellen. Dazu wirst du zuerst einen .zip Ordner, mit den nötigen Materialien herunterladen (siehe *Aufgaben* Tab). Das Endprodukt ist der `airbnb_bericht_loesung.html` Bericht im `3_Markdown` Ordner diese .zip Ordners.
+In diesem Practical lernst du einen Bericht mit Markdown zu erstellen. Dazu wirst du zuerst einen .zip Ordner, mit den nötigen Materialien herunterladen (siehe *Aufgaben* Tab). Das Endprodukt ist der `airbnb_bericht_loesung.html` Bericht im `3_Markdown` Ordner dieses .zip Ordners.
 
 Am Ende dieser Übung wirst du wissen wie man:
 
@@ -85,7 +85,7 @@ Am Ende dieser Übung wirst du wissen wie man:
 
 ### A - Setup
 
-1. Lade den *Mardown_Uebungen.zip* Ordner mit den Inhalten, die für diese Übung wichtig sind [**von hier**](https://github.com/therbootcamp/Rmd_CorrelAid_2021/raw/master/Markdown_Uebungen.zip) herunter und unzippe ihn.
+1. Lade den *Markdown_Uebungen.zip* Ordner mit den Inhalten, die für diese Übung wichtig sind [**von hier**](https://github.com/therbootcamp/Rmd_CorrelAid_2021/raw/master/Markdown_Uebungen.zip) herunter und unzippe ihn.
 
 2. Gehe in den Ordner und öffne dein `Mardown_Uebungen` R Projekt. Es sollte die Ordner `1_Data`, `2_Assets`, und `3_Markdown` enthalten. 
 
