@@ -31,7 +31,7 @@ output:
 
 ## Input
 
-- [**Talk**]()
+- [**Talk**](https://www.youtube.com/watch?v=zn6xN2lpLiE&list=PLXK26SbU87342pTb3Px0vtq9hr3KyPsee&index=7)
 - [**Slides**](https://therbootcamp.github.io/Rmd_CorrelAid_2021/_sessions/Markdown/Markdown.html)
 
 ## Übungen
